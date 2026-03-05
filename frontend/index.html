@@ -6,6 +6,19 @@
   <title>Document</title>
 </head>
 <body>
-  
+  <h1>цена BTC</h1>
+  <h2 id="value">Загрузка...</h2>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:8080')
+
+    ws.onmessage = event => {      
+      const message = JSON.parse(event.data)
+
+      if (message.type === 'btc_price') {
+        document.getElementById('value').innerHTML = `${message.data.price} USD @ ${message.data.timestamp}`
+      }
+    }
+  </script>
 </body>
 </html>
